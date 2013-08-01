@@ -1,0 +1,127 @@
+<!--
+/*************************************************************
+ * This script is developed by Arturs Sosins aka ar2rsawseen, http://webcodingeasy.com
+ * Feel free to distribute and modify code, but keep reference to its creator
+ *
+ * Lightning draws a randomly generated lightning with glow effect on html page
+ * from x and y coordinates, to other x and y coordinates.
+ *
+ * For more information, examples and online documentation visit: 
+ * http://webcodingeasy.com/JS-classes/Javascript-lightning-effect
+**************************************************************/
+-->
+<html><head>
+</head>
+<body style="background-color: #000;">
+<h1 style="color: #fff; text-align: center;">Step 7. Find your passion.</h1>
+<h1 style="color: #fff; text-align: center;">Step 8. Work on it a little everyday.</h1>
+<h1 style="color: #fff; text-align: center;">Step 9. Never give up.</h1>
+<h1 style="color: #fff; text-align: center; margin-top:450px;">Step 10. Build your <a href="#" onclick="event.preventDefault()" >Super Power</a>.</h1>
+
+
+<script type="text/javascript" src="./lightning.packed.js"></script>
+
+
+
+
+
+<script>
+//get viewport dimensions
+var viewport = function(){
+	var viewport = new Object();
+	viewport.width = 0;
+	viewport.height = 0;
+	// the more standards compliant browsers (mozilla/netscape/opera/IE7) 
+	//use window.innerWidth and window.innerHeight
+	if (typeof window.innerWidth != 'undefined')
+	{
+		viewport.width = window.innerWidth,
+		viewport.height = window.innerHeight
+	}
+	else if (typeof document.documentElement != 'undefined'
+	&& typeof document.documentElement.clientWidth !=
+	'undefined' && document.documentElement.clientWidth != 0)
+	{
+		viewport.width = document.documentElement.clientWidth,
+		viewport.height = document.documentElement.clientHeight
+	}
+	else
+	{
+		viewport.width = document.getElementsByTagName('body')[0].clientWidth,
+		viewport.height = document.getElementsByTagName('body')[0].clientHeight
+	}
+	return viewport;
+};
+
+var v = viewport();
+	
+//generate random coordinates at one of the sides
+function randomSide(){
+	var startX;
+	var startY;
+	var rand = Math.random();
+	if(rand <= 0.25){
+		startX = Math.random(0,v.width);
+		startY = 0
+	}
+	else if(rand <= 0.5){
+		startX = Math.random(0,v.width);
+		startY = v.height;
+	}
+	else if(rand <= 0.75){
+		startX = 0;
+		startY = Math.random(0,v.height);
+	}
+	else if(rand <= 1){
+		startX = v.width;
+		startY = Math.random(0,v.height);
+	}
+	var ob = {};
+	ob.startX = startX;
+	ob.startY = startY;
+	return ob;
+}
+
+var lt = new lightning({glow: false});
+var draw = false;
+document.body.onmousedown = function(e){
+	var ob = randomSide();
+	lt.show(ob.startX, ob.startY, e.clientX, e.clientY);
+	draw = true;
+}
+document.body.onmousemove = function(e){
+	if(draw)
+	{
+		lt.hide();
+		var ob = randomSide();
+		lt.show(ob.startX, ob.startY, e.clientX, e.clientY);
+	}
+}
+document.body.onmouseup = function(e){
+	draw = false;
+	lt.hide();
+}
+//lt.hide();
+</script>
+<canvas width="1372px" height="674px" id="lightning_canvas" style="position: absolute; top: 0px; left: 0px;"></canvas>
+
+</body></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       
