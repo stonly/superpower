@@ -183,6 +183,7 @@ function outf(text) {
     var mypre = document.getElementById("output"); 
     mypre.innerHTML = mypre.innerHTML + text; 
 } 
+
 outfv = { '2': function outf(text) { 
               var mypre = document.getElementById("output2"); 
               mypre.innerHTML = mypre.innerHTML + text; 
@@ -203,6 +204,12 @@ function builtinRead(x) {
 // get a reference to your pre element for output
 // configure the output function
 // call Sk.importMainWithBody()
+function ignoreerror()
+{
+   return true
+}
+//window.onerror=ignoreerror();
+//onerror = ignoreerror();
 function runit() { 
    var prog = document.getElementById("yourcode").value; 
    var mypre = document.getElementById("output"); 
@@ -216,25 +223,54 @@ function runitv(targeti) {
   if(!targeti){
     var targeti = '2';
   }
+  console.log('test')
    var prog = document.getElementById("yourcode"+targeti).value; 
    var mypre = document.getElementById("output"+targeti); 
    mypre.innerHTML = ''; 
    Sk.pre = "output"+targeti;
-   Sk.configure({output:outfv[targeti], read:builtinRead});
+   Sk.configure({output:outfv[NaN], read:builtinRead});
    var prog2 = ''
    var proglines = prog.split('\n')
-   for(var i = 0; i < proglines.length; i++){
+   try{
+        eval(Sk.importMainWithBody("<stdin>",false,proglines[i]));
+      } catch(err) {
+        //alert(err)
+        var err= 1;
+   } finally {
+   if(!err){
+    for(var i = 0; i < proglines.length; i++){
     if(proglines[i].indexOf('print') === 0){
       eval(Sk.importMainWithBody("<stdin>",false,proglines[i]));
+      prog2 += proglines[i]+'\n';
     } else {
       var newprog = 'print '+proglines[i];
       try{
         eval(Sk.importMainWithBody("<stdin>",false,newprog));
+        prog2 += newprog+'\n';
       } catch (err){
-        eval(Sk.importMainWithBody("<stdin>",false,proglines[i]));
+        //alert(err)
+        //eval(Sk.importMainWithBody("<stdin>",false,proglines[i]));
+        if(String(err).indexOf('NameError') >= 0)
+          {
+            prog2 += newprog+'\n';
+          } else {
+            prog2 += proglines[i]+'\n';
+          }
       }
     }
-   } 
+   }
+  //alert(prog2) 
+  //alert('here')      
+
+   Sk.configure({output:outfv[targeti], read:builtinRead});
+      try{
+        eval(Sk.importMainWithBody("<stdin>",false,prog2));
+      } catch (err){
+        alert(err)
+        
+      }
+  }
+}
 } 
 </script> 
 <article class='slide slide-subhead'>
@@ -1337,7 +1373,7 @@ if (Object.create === undefined){ // don't overwrite it if it exists
 
 
 <article class="slide">
-  <h1>Excercise the Power of Awesome!</h1>
+  <h1>Exercise the Power of Awesome!</h1>
   <h2>Step 6.</h2>
 </article>
 
