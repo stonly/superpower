@@ -191,6 +191,9 @@ outfv = { '2': function outf(text) {
           '3': function outf(text) { 
               var mypre = document.getElementById("output3"); 
               mypre.innerHTML = mypre.innerHTML + text;               
+        },
+          'NaN': function outf(text) { 
+                             
         }
 } 
 function builtinRead(x) {
@@ -228,19 +231,19 @@ function runitv(targeti) {
    var mypre = document.getElementById("output"+targeti); 
    mypre.innerHTML = ''; 
    Sk.pre = "output"+targeti;
-   Sk.configure({output:outfv[NaN], read:builtinRead});
+   Sk.configure({output:outfv['NaN'], read:builtinRead});
    var prog2 = ''
    var proglines = prog.split('\n')
    try{
-        eval(Sk.importMainWithBody("<stdin>",false,proglines[i]));
+        eval(Sk.importMainWithBody("<stdin>",false,prog));
       } catch(err) {
-        //alert(err)
+        alert(err)
         var err= 1;
    } finally {
    if(!err){
     for(var i = 0; i < proglines.length; i++){
-    if(proglines[i].indexOf('print') === 0){
-      eval(Sk.importMainWithBody("<stdin>",false,proglines[i]));
+    if(proglines[i].indexOf('print') === 0 || proglines[i]===''){
+      //eval(Sk.importMainWithBody("<stdin>",false,proglines[i]));
       prog2 += proglines[i]+'\n';
     } else {
       var newprog = 'print '+proglines[i];
@@ -249,7 +252,6 @@ function runitv(targeti) {
         prog2 += newprog+'\n';
       } catch (err){
         //alert(err)
-        //eval(Sk.importMainWithBody("<stdin>",false,proglines[i]));
         if(String(err).indexOf('NameError') >= 0)
           {
             prog2 += newprog+'\n';
@@ -258,10 +260,8 @@ function runitv(targeti) {
           }
       }
     }
-   }
-  //alert(prog2) 
-  //alert('here')      
-
+   }    
+//alert(prog2)
    Sk.configure({output:outfv[targeti], read:builtinRead});
       try{
         eval(Sk.importMainWithBody("<stdin>",false,prog2));
