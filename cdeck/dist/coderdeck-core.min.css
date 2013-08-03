@@ -33,7 +33,7 @@ html {
 .deck-container footer, .deck-container header, .deck-container hgroup, .deck-container menu, .deck-container nav, .deck-container section, .deck-container summary,
 .deck-container time, .deck-container mark, .deck-container audio, .deck-container video {
   margin: 0;
-  padding: 0;
+  /*padding: 0;*/
   border: 0;
   font-size: 100%;
   font: inherit;
@@ -426,7 +426,7 @@ html {
 .deck-container footer, .deck-container header, .deck-container hgroup, .deck-container menu, .deck-container nav, .deck-container section, .deck-container summary,
 .deck-container time, .deck-container mark, .deck-container audio, .deck-container video {
   margin: 0;
-  padding: 0;
+/*  padding: 0;*/
   border: 0;
   font-size: 100%;
   font: inherit;
@@ -972,6 +972,7 @@ body.deck-container {
 }
 .CodeMirror-lines {
   padding: .4em;
+  padding-left: .2em;
 }
 
 .CodeMirror pre {

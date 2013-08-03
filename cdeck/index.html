@@ -38,8 +38,6 @@
   <html>
     <head>
       <script src='dist/jquery.min.js'>SCRIPTEND
-      <script src="../turtlewax/hsv.js">SCRIPTEND
-      <script src="../turtlewax/pen.js">SCRIPTEND
     <style>
       html, body {
         color: white;
@@ -47,7 +45,17 @@
       </style>
     </head>
     <body style="color:white;">
-      CODE
+      <script>
+      $(function() {
+        $('#output').html();
+        console.log = function(o){
+          $('#output').html( $('#output').html() +'<br />'+o);
+        }
+        CODE
+        });
+
+      SCRIPTEND
+<div id="output"></div>
     </body>
 </html>
 </script>
@@ -954,7 +962,7 @@ p  { color:pink;}
 <article class="slide">
   <small><a href="http://learnxinyminutes.com/docs/python/" target="_blank">Learn Javascript in Y minutes</a></small> 
 <table><tr><td>
-  <textarea style="font-family:monospace, sans-serif;font-size:14px;" readonly cols="60" rows="30">
+  <textarea style="font-family:monospace, sans-serif;font-size:14px;" readonly cols="75" rows="30">
 // Comments are like C. Single-line comments start with two slashes,
 /* and multiline comments start with slash-star
    and end with star-slash */
@@ -1348,21 +1356,11 @@ if (Object.create === undefined){ // don't overwrite it if it exists
 </textarea>
 </td>
 <td width="700px">
-  <textarea class='coder-editor' style="color:white;" data-coder-template="coderdeck-default2">
-<script>
-  $(function() {
-    function print(o){
-      $('#output').html(o);
-    }
-    
-    //Your code goes here.
-    //Use print() to see the results
-    //on the right.
-    print('Wohoo!');
-  });
-
-</script>
-<div id="output">Hello, World!</div>
+  <textarea class='coder-editor coder-editor-full' style="color:white;" data-coder-template="coderdeck-default2" data-language="javascript">//
+//
+// Use console.log() to see your output.
+// ex. console.log('Hello, World!')
+//
 </textarea>
 </td></tr>
 </table>
