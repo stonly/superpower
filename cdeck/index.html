@@ -377,14 +377,22 @@ function runitv(targeti) {
     var canvas = $('#mycanvas1');
     var p = new Pen("mycanvas1");
     p.penstyle("lightgreen");
-    p.jump(10, 30)
-     .right(150)
-     .down(150)
-     .left(150)
-     .up(150)
+    p.jump(30, 30)
+     .right(140)
+     .down(140)
+     .left(140)
+     .up(140)
      .fillstyle("transparent")
      .draw();
- 
+
+    p.jump(100,100).draw();
+    for(var i=0; i<=360; i++){
+      var x = 100 + 100 * Math.cos(i);
+      var y = 100 + 100 * Math.sin(i);
+      p.jump(x,y)
+       .right(1)
+       .draw();
+    }
   });
 </script>
 
